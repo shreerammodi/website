@@ -1,0 +1,47 @@
+@font-face {
+  font-family: "Redaction";
+  src: url("lib/Redaction-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Redaction";
+  src: url("lib/Redaction-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Redaction";
+  src: url("lib/Redaction-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+html,
+body {
+  position: relative;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  font-family: "Redaction", serif;
+}
+main {
+  position: relative;
+  top: 40%;
+  transform: translateY(-50%);
+  text-align: center;
+}
+
+h1 {
+  margin: 0;
+  display: inline;
+}
+
+a:hover {
+  text-decoration: underline;
+}
