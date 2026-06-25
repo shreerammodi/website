@@ -2,9 +2,12 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <title>Reconciling Tech Over Truth — Shreeram Modi</title>
+    <title>Reconciling Tech Over Truth---Shreeram Modi</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="A comprehensive system to understand evaluation in debate rounds." />
+    <meta
+      name="description"
+      content="A comprehensive system to understand evaluation in debate rounds."
+    />
     <link rel="stylesheet" href="/style.css" />
   </head>
   <body>
@@ -18,284 +21,1074 @@
         </nav>
       </header>
       <h1>Reconciling Tech Over Truth</h1>
-<h2 id="introduction">Introduction</h2>
-<p>“Tech over truth” is a phrase frequently touted on judge
-philosophies, at this point becoming a philosophy in and of itself. This
-philosophy has a common consensus, though the true nature of what a
-“technical” judge is remains unquestioned.</p>
-<p>Colloquially, a technical judge is one who does not let their
-personal belief in arguments influence their willingness to vote for
-said arguments. For instance, a technical judge who personally believes
-that global warming is truly bad would still find themselves compelled
-to vote for Warming Good if won on the flow. This contrasts with judges
-whose personal disbelief in the benefits of global warming would cause
-them to disregard the argument, even if won in a debate. Other commonly
-touted examples include spark/wipeout, “process” counterplans, and the
-kritik (or untopical affirmatives).</p>
-<p>However, an understanding of what exactly it means to be a technical
-judge leaves much to be desired. What does it mean for something to be
-“won” in a debate? Is it the stance of the tech &gt; truth crowd that
-claims do not need warrants? How does a technical judge adhere to their
-principles while evaluating various edge-case scenarios that a
-non-technical judge would merely be able to exclude, citing personal
-belief?</p>
-<p>I hope to reconcile some of these issues and present what I believe
-is a model for understanding technical and non-technical evaluation.</p>
-<h2 id="a-sentential-logic-system-for-debate">A Sentential Logic System
-for Debate</h2>
-<p>To understand how a technical judge should evaluate arguments, we’ll
-start by creating logical representations of all primitives relevant to
-a debate round. The most basic currency debaters leverage are claims.
-These are ubiquitous in debate, and debaters frequently claim that
-various premises are true. We’ll represent claims by using letters, for
-instance:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi>c</mi></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>:</mo><mtext mathvariant="normal">The plan solves war with China.</mtext></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi>q</mi></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>:</mo><mtext mathvariant="normal">The plan is unpopular with voters.</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">
-\begin{align*}
-c &amp;: \text{The plan solves war with China.}\\
-q &amp;: \text{The plan is unpopular with voters.}
-\end{align*}
-</annotation></semantics></math></p>
-<p>We can also display the negation of claims</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mtable><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mi>c</mi></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>:</mo><mtext mathvariant="normal">The plan solves war with China.</mtext></mtd></mtr><mtr><mtd columnalign="right" style="text-align: right; padding-right: 0"><mo>¬</mo><mi>c</mi></mtd><mtd columnalign="left" style="text-align: left; padding-left: 0"><mo>:</mo><mtext mathvariant="normal">The plan does not solve war with China.</mtext></mtd></mtr></mtable><annotation encoding="application/x-tex">
-\begin{align*}
-c &amp;: \text{The plan solves war with China.}\\
-\neg c &amp;: \text{The plan does not solve war with China.}
-\end{align*}
-</annotation></semantics></math></p>
-<p>Claims can have truth values as well. Here, I’m not referring to
-“real world truth” but rather whether a claim has been won as being true
-in debate or not. We can represent the truth value of a claim using a
-simple function:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">if </mtext><mspace width="0.333em"></mspace></mrow><mi>x</mi><mrow><mspace width="0.333em"></mspace><mtext mathvariant="normal"> is true</mtext></mrow></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">if false</mtext></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
-T(x) = \begin{cases}
-1 &amp; \text{if } x \text{ is true}\\
-0 &amp; \text{if false}
-\end{cases}
-</annotation></semantics></math></p>
-<h3 id="justifying-claims">Justifying Claims</h3>
-<p>Merely having claims is of little use to us. The degree to which a
-claim has been warranted seems relevant. Therefore, we need a way to
-represent this; we’ll use another function:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mrow><mtext mathvariant="normal">The degree of justification for </mtext><mspace width="0.333em"></mspace></mrow><mi>x</mi></mrow><annotation encoding="application/x-tex">
-J(x): \text{The degree of justification for } x
-</annotation></semantics></math></p>
-<p>For instance, if a debater has claimed</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>p</mi><mo>:</mo><mtext mathvariant="normal">The plan is popular with voters</mtext></mrow><annotation encoding="application/x-tex">
-p: \text{The plan is popular with voters}
-</annotation></semantics></math></p>
-<p>and then cites reputed polls conducted recently with high sample
-sizes, we can assign some arbitrary non-zero
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>-value
-to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math></p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>5</mn></mrow><annotation encoding="application/x-tex">
-J(p) = 5
-</annotation></semantics></math></p>
-<p>Introducing justification enables us to break ties in the instance of
-contradictions. We can update our function
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T(x)</annotation></semantics></math>
-from earlier to map to the sign of the justification differential
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mo>¬</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J(x) - J(\neg x)</annotation></semantics></math>
-as follows:</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">if </mtext><mspace width="0.333em"></mspace></mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mo>¬</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">if </mtext><mspace width="0.333em"></mspace></mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mo>¬</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>0</mn></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
-T(x) = \begin{cases}
-1 &amp; \text{if } J(x) - J(\neg x) &gt; 0\\
-0 &amp; \text{if } J(x) - J(\neg x) \leq 0
-\end{cases}
-</annotation></semantics></math></p>
-<p>If the degree of warranting for the negation of a claim is equal to
-or higher than the degree of warranting for the claim itself, then we
-can assign it a
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>-value
-of 0. For example, if a debater were to claim</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>m</mi><mo>:</mo><mtext mathvariant="normal">The plan gets modeled internationally.</mtext></mrow><annotation encoding="application/x-tex">
-m: \text{The plan gets modeled internationally.}
-</annotation></semantics></math></p>
-<p>but provided minimal warranting, we could assign</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">
-J(m) = 3
-</annotation></semantics></math></p>
-<p>Now, if the opposing side were to argue</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>¬</mo><mi>m</mi><mo>:</mo><mtext mathvariant="normal">The plan does not get modeled</mtext></mrow><annotation encoding="application/x-tex">
-\neg m: \text{The plan does not get modeled}
-</annotation></semantics></math></p>
-<p>and were to provide peer-reviewed evidence, backed by experts in the
-field, citing empirics, we could assign some higher
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>-value
-to
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>¬</mo><mi>m</mi></mrow><annotation encoding="application/x-tex">\neg m</annotation></semantics></math>
-such that</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mo>¬</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">
-J(\neg m) &gt; J(m)
-</annotation></semantics></math></p>
-<p>therefore concluding that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">T(m) = 0</annotation></semantics></math>.</p>
-<h4 id="edge-case-unwarranted-claims">Edge-case: Unwarranted claims</h4>
-<p>What to do with two equally unwarranted claims? Say a debater blurts
-out</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>c</mi><mo>:</mo><mtext mathvariant="normal">The plan prevents war with China</mtext></mrow><annotation encoding="application/x-tex">
-c: \text{The plan prevents war with China}
-</annotation></semantics></math></p>
-<p>and provides no warrant for the claim. Now their opponent also blurts
-out</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>¬</mo><mi>c</mi><mo>:</mo><mtext mathvariant="normal">The plan does not prevent war with China</mtext></mrow><annotation encoding="application/x-tex">
-\neg c: \text{The plan does not prevent war with China}
-</annotation></semantics></math></p>
-<p>and provides equally little warranting. In this case
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mo>¬</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J(\neg c) = J(c)</annotation></semantics></math>.
-As the judge, do you conclude that the plan prevents war with China or
-that it doesn’t?</p>
-<p>Using the above function for
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T(x)</annotation></semantics></math>,
-you would conclude that since
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mo>¬</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>,</mo><mspace width="0.222em"></mspace><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">J(\neg c) = J(c),\ T(c) = 0</annotation></semantics></math>;
-therefore, the plan <strong>does not</strong> prevent war with
-China.</p>
-<h3 id="real-world-truth">Real-world truth</h3>
-<p>For the technical judge, the above is a sufficient toolkit, and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T(x)</annotation></semantics></math>
-can be determined <em>solely</em> through the arguments that a debater
-has made in a round. However, for judges that ascribe to other
-philosophies: truth &gt; tech, tech + truth, “Bayesian,” an element of a
-claim’s connectedness to real-world truth—or personal belief—also
-matters.</p>
-<p>We can represent this personal belief in an argument using another
-function</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>:</mo><mtext mathvariant="normal">One’s personal belief in the truth-value of an argument</mtext></mrow><annotation encoding="application/x-tex">
-B(x): \text{One&#39;s personal belief in the truth-value of an argument}
-</annotation></semantics></math></p>
-<p>This value can implicate
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T(x)</annotation></semantics></math>
-in many ways. Some judges are extremists; unless they personally believe
-in an argument, they refuse to vote for it (e.g. parents). For them</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">if </mtext><mspace width="0.333em"></mspace></mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mn>0</mn></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">if </mtext><mspace width="0.333em"></mspace></mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≤</mo><mn>0</mn></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
-T(x) = \begin{cases}
-1 &amp; \text{if } B(x) &gt; 0\\
-0 &amp; \text{if } B(x) \leq 0
-\end{cases}
-</annotation></semantics></math></p>
-<p>Others include some baseline check for real-world connectedness in
-order to evaluate arguments, for instance as a Bayesian lens</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mrow><mo stretchy="true" form="prefix">{</mo><mtable><mtr><mtd columnalign="left" style="text-align: left"><mn>1</mn></mtd><mtd columnalign="left" style="text-align: left"><mrow><mtext mathvariant="normal">if </mtext><mspace width="0.333em"></mspace></mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mo>¬</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo><mi>−</mi><mrow><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow><mrow><mo stretchy="true" form="prefix">(</mo><mfrac><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mo>¬</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow></mfrac><mo stretchy="true" form="postfix">)</mo></mrow></mtd></mtr><mtr><mtd columnalign="left" style="text-align: left"><mn>0</mn></mtd><mtd columnalign="left" style="text-align: left"><mtext mathvariant="normal">otherwise</mtext></mtd></mtr></mtable></mrow></mrow><annotation encoding="application/x-tex">
-T(x) = \begin{cases}
-1 &amp; \text{if } J(x) - J(\neg x) &gt; -\log \left( \frac{B(x)}{B(\neg x)} \right)\\
-0 &amp; \text{otherwise}
-\end{cases}
-</annotation></semantics></math></p>
-<p>Here, personal belief is used as a threshold that an argument must
-overcome in order to potentially have
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T(1)</annotation></semantics></math>.
-The possibilities are endless, though this is also the reason why such a
-model of evaluation is undesirable. This post is not intended to be a
-defense of the tech &gt; truth paradigm, but it seems self-evident that
-debaters want the debate to be about the arguments they’ve made and not
-their judge’s personal belief, which including
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B(x)</annotation></semantics></math>
-anywhere in your assessment risks. Therefore, to truly remain technical,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B(x)</annotation></semantics></math>
-should never be a factor in your equation for determining
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">T(x)</annotation></semantics></math>.</p>
-<h2 id="reconciling-justification">Reconciling Justification</h2>
-<p>One final bit of reconciliation is necessary, how do we determine
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J(x)</annotation></semantics></math>?
-It seems that to include personal belief in evaluation runs contrary to
-the tenets of technical evaluation. However, this seems inevitable. You
-need to know what a PhD is in order to quantify by what amount
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J(x)</annotation></semantics></math>
-should increase if the author a debater is citing has a PhD. You also
-need to know about the real world in order to assess the quality of
-analytic arguments or evidence, etc. Otherwise, you’d have no way to
-distinguish the arguments a debater has made from gibberish.</p>
-<p>This is compatible with a technical philosophy. For a judge to be
-technical, they must be willing to vote solely on the arguments made in
-a debate; i.e. they must not include personal belief in an argument,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B(x)</annotation></semantics></math>,
-in their evaluation of it.</p>
-<p>A non-technical judge imposes some baseline, influence, or amplify
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J(x)</annotation></semantics></math>
-based on
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">B(x)</annotation></semantics></math>.
-The distinction lies in whether one’s knowledge of the world is used to
-compare warrants (is this evidence more qualified than the other) or
-<em>claims</em> (does the plan prevent war with China).</p>
-<h2 id="distinguishing-j-and-b">Distinguishing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math></h2>
-<p>A concern that arises is that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-seem quite similar. I’ve conceded earlier that external knowledge is
-relevant for assessing
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>,
-but also seemingly that it shouldn’t be permitted via
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.
-So what is the difference?</p>
-<p>The distinction lies in that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-is a measure of pure personal belief, whereas
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
-is a measure of the justifications presented in a round. This means that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>x</mi></mrow><annotation encoding="application/x-tex">\forall x</annotation></semantics></math>
-such that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>x</mi><annotation encoding="application/x-tex">x</annotation></semantics></math>
-is a claim made / contested in a round,
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J(x)</annotation></semantics></math>
-at the beginning of the round is <strong>not equal to</strong>
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">J(x)</annotation></semantics></math>
-at the end of the round. However, because
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-just reflects your own personal belief, the arguments made in a
-round—unless they’ve been so compelling as to shape your real
-belief—never affect
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>.</p>
-<p>Another question that arises is, what does it mean to permit personal
-belief in evaluating justification, but not in influencing the outcome?
-To answer this, we need a model of the technical judge.</p>
-<h2 id="a-conclusive-model-of-the-technical-judge">A Conclusive Model of
-The Technical Judge</h2>
-<p>From all of the above, we can construct a model of a technical judge.
-We know that a technical judge must not let their external knowledge
-influence their willingness to vote for certain arguments. That
-establishes that the following are true</p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">[</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">]</mo><mo>→</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">[</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">]</mo><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">
-\forall x,y \Big( \big[ J(x) = J(y) \big] \rightarrow \big[ T(x) = T(y) \big] \Big)
-</annotation></semantics></math></p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>∀</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">[</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">]</mo><mo>→</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">[</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">]</mo><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">
-\forall x,y \Big( \big[ J(x) \neq J(y) \big] \rightarrow \big[ T(x) \neq T(y) \big] \Big)
-</annotation></semantics></math></p>
-<p><math display="block" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mrow><mo>¬</mo><mo>∃</mo><mi>x</mi><mo>,</mo><mi>y</mi><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix">(</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">[</mo><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">]</mo><mo>→</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix">[</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>y</mi><mo stretchy="false" form="postfix">)</mo><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix">]</mo><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix">)</mo></mrow><annotation encoding="application/x-tex">
-\neg \exists x, y \Big( \big[ B(x) \neq B(y) \big] \rightarrow \big[ T(x) \neq T(y) \big] \Big)
-</annotation></semantics></math></p>
-<p>It should never be the case that a mere difference in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-implies a difference in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>
-for any two claims made in a debate round, and it <strong>must</strong>
-be the case that
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
-directly tracks with
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>,
-and therefore that differences in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
-must lead to differences in
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>T</mi><annotation encoding="application/x-tex">T</annotation></semantics></math>.
-We’ve already established the distinction between
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>
-and
-<math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"><semantics><mi>J</mi><annotation encoding="application/x-tex">J</annotation></semantics></math>
-earlier, so we’re left with the conclusion that, for a technical
-judge:</p>
-<ul>
-<li>Belief in claims relevant to a debate must be based solely on the
-arguments made in a round</li>
-<li>Knowledge of the external world should be relevant solely to assess
-the justification for arguments made, but must never be used to filter
-arguments that do not align with one’s personal belief</li>
-<li>Arguments made in a round should always take precedence over
-belief</li>
-</ul>
+      <h2 id="introduction">Introduction</h2>
+      <p>
+        “Tech over truth” is a phrase frequently touted on judge philosophies,
+        at this point becoming a philosophy in and of itself. This philosophy
+        has a common consensus, though the true nature of what a “technical”
+        judge is remains unquestioned.
+      </p>
+      <p>
+        Colloquially, a technical judge is one who does not let their personal
+        belief in arguments influence their willingness to vote for said
+        arguments. For instance, a technical judge who personally believes that
+        global warming is truly bad would still find themselves compelled to
+        vote for Warming Good if won on the flow. This contrasts with judges
+        whose personal disbelief in the benefits of global warming would cause
+        them to disregard the argument, even if won in a debate. Other commonly
+        touted examples include spark/wipeout, “process” counterplans, and the
+        kritik (or untopical affirmatives).
+      </p>
+      <p>
+        However, an understanding of what exactly it means to be a technical
+        judge leaves much to be desired. What does it mean for something to be
+        “won” in a debate? Is it the stance of the tech &gt; truth crowd that
+        claims do not need warrants? How does a technical judge adhere to their
+        principles while evaluating various edge-case scenarios that a
+        non-technical judge would merely be able to exclude, citing personal
+        belief?
+      </p>
+      <p>
+        I hope to reconcile some of these issues and present what I believe is a
+        model for understanding technical and non-technical evaluation.
+      </p>
+      <h2 id="a-sentential-logic-system-for-debate">
+        A Sentential Logic System for Debate
+      </h2>
+      <p>
+        To understand how a technical judge should evaluate arguments, we’ll
+        start by creating logical representations of all primitives relevant to
+        a debate round. The most basic currency debaters leverage are claims.
+        These are ubiquitous in debate, and debaters frequently claim that
+        various premises are true. We’ll represent claims by using letters, for
+        instance:
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mtable
+              ><mtr
+                ><mtd
+                  columnalign="right"
+                  style="text-align: right; padding-right: 0"
+                  ><mi>c</mi></mtd
+                ><mtd
+                  columnalign="left"
+                  style="text-align: left; padding-left: 0"
+                  ><mo>:</mo
+                  ><mtext mathvariant="normal"
+                    >The plan solves war with China.</mtext
+                  ></mtd
+                ></mtr
+              ><mtr
+                ><mtd
+                  columnalign="right"
+                  style="text-align: right; padding-right: 0"
+                  ><mi>q</mi></mtd
+                ><mtd
+                  columnalign="left"
+                  style="text-align: left; padding-left: 0"
+                  ><mo>:</mo
+                  ><mtext mathvariant="normal"
+                    >The plan is unpopular with voters.</mtext
+                  ></mtd
+                ></mtr
+              ></mtable
+            ><annotation encoding="application/x-tex">
+              \begin{align*} c &amp;: \text{The plan solves war with China.}\\ q
+              &amp;: \text{The plan is unpopular with voters.} \end{align*}
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>We can also display the negation of claims</p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mtable
+              ><mtr
+                ><mtd
+                  columnalign="right"
+                  style="text-align: right; padding-right: 0"
+                  ><mi>c</mi></mtd
+                ><mtd
+                  columnalign="left"
+                  style="text-align: left; padding-left: 0"
+                  ><mo>:</mo
+                  ><mtext mathvariant="normal"
+                    >The plan solves war with China.</mtext
+                  ></mtd
+                ></mtr
+              ><mtr
+                ><mtd
+                  columnalign="right"
+                  style="text-align: right; padding-right: 0"
+                  ><mo>¬</mo><mi>c</mi></mtd
+                ><mtd
+                  columnalign="left"
+                  style="text-align: left; padding-left: 0"
+                  ><mo>:</mo
+                  ><mtext mathvariant="normal"
+                    >The plan does not solve war with China.</mtext
+                  ></mtd
+                ></mtr
+              ></mtable
+            ><annotation encoding="application/x-tex">
+              \begin{align*} c &amp;: \text{The plan solves war with China.}\\
+              \neg c &amp;: \text{The plan does not solve war with China.}
+              \end{align*}
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        Claims can have truth values as well. Here, I’m not referring to “real
+        world truth” but rather whether a claim has been won as being true in
+        debate or not. We can represent the truth value of a claim using a
+        simple function:
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>=</mo
+              ><mrow
+                ><mo stretchy="true" form="prefix">{</mo
+                ><mtable
+                  ><mtr
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mn>1</mn></mtd
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mrow
+                        ><mtext mathvariant="normal">if </mtext
+                        ><mspace width="0.333em"></mspace></mrow
+                      ><mi>x</mi
+                      ><mrow
+                        ><mspace width="0.333em"></mspace
+                        ><mtext mathvariant="normal"> is true</mtext></mrow
+                      ></mtd
+                    ></mtr
+                  ><mtr
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mn>0</mn></mtd
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mtext mathvariant="normal">if false</mtext></mtd
+                    ></mtr
+                  ></mtable
+                ></mrow
+              ></mrow
+            ><annotation encoding="application/x-tex">
+              T(x) = \begin{cases} 1 &amp; \text{if } x \text{ is true}\\ 0
+              &amp; \text{if false} \end{cases}
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <h3 id="justifying-claims">Justifying Claims</h3>
+      <p>
+        Merely having claims is of little use to us. The degree to which a claim
+        has been warranted seems relevant. Therefore, we need a way to represent
+        this; we’ll use another function:
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>:</mo
+              ><mrow
+                ><mtext mathvariant="normal"
+                  >The degree of justification for </mtext
+                ><mspace width="0.333em"></mspace></mrow
+              ><mi>x</mi></mrow
+            ><annotation encoding="application/x-tex">
+              J(x): \text{The degree of justification for } x
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>For instance, if a debater has claimed</p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>p</mi><mo>:</mo
+              ><mtext mathvariant="normal"
+                >The plan is popular with voters</mtext
+              ></mrow
+            ><annotation encoding="application/x-tex">
+              p: \text{The plan is popular with voters}
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        and then cites reputed polls conducted recently with high sample sizes,
+        we can assign some arbitrary non-zero
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>J</mi
+            ><annotation encoding="application/x-tex">J</annotation></semantics
+          ></math
+        >-value to
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>p</mi
+            ><annotation encoding="application/x-tex">p</annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>p</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>=</mo
+              ><mn>5</mn></mrow
+            ><annotation encoding="application/x-tex">
+              J(p) = 5
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        Introducing justification enables us to break ties in the instance of
+        contradictions. We can update our function
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >T(x)</annotation
+            ></semantics
+          ></math
+        >
+        from earlier to map to the sign of the justification differential
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>−</mo><mi>J</mi
+              ><mo stretchy="false" form="prefix">(</mo><mo>¬</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >J(x) - J(\neg x)</annotation
+            ></semantics
+          ></math
+        >
+        as follows:
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>=</mo
+              ><mrow
+                ><mo stretchy="true" form="prefix">{</mo
+                ><mtable
+                  ><mtr
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mn>1</mn></mtd
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mrow
+                        ><mtext mathvariant="normal">if </mtext
+                        ><mspace width="0.333em"></mspace></mrow
+                      ><mi>J</mi><mo stretchy="false" form="prefix">(</mo
+                      ><mi>x</mi><mo stretchy="false" form="postfix">)</mo
+                      ><mo>−</mo><mi>J</mi
+                      ><mo stretchy="false" form="prefix">(</mo><mo>¬</mo
+                      ><mi>x</mi><mo stretchy="false" form="postfix">)</mo
+                      ><mo>&gt;</mo><mn>0</mn></mtd
+                    ></mtr
+                  ><mtr
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mn>0</mn></mtd
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mrow
+                        ><mtext mathvariant="normal">if </mtext
+                        ><mspace width="0.333em"></mspace></mrow
+                      ><mi>J</mi><mo stretchy="false" form="prefix">(</mo
+                      ><mi>x</mi><mo stretchy="false" form="postfix">)</mo
+                      ><mo>−</mo><mi>J</mi
+                      ><mo stretchy="false" form="prefix">(</mo><mo>¬</mo
+                      ><mi>x</mi><mo stretchy="false" form="postfix">)</mo
+                      ><mo>≤</mo><mn>0</mn></mtd
+                    ></mtr
+                  ></mtable
+                ></mrow
+              ></mrow
+            ><annotation encoding="application/x-tex">
+              T(x) = \begin{cases} 1 &amp; \text{if } J(x) - J(\neg x) &gt; 0\\
+              0 &amp; \text{if } J(x) - J(\neg x) \leq 0 \end{cases}
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        If the degree of warranting for the negation of a claim is equal to or
+        higher than the degree of warranting for the claim itself, then we can
+        assign it a
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>T</mi
+            ><annotation encoding="application/x-tex">T</annotation></semantics
+          ></math
+        >-value of 0. For example, if a debater were to claim
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>m</mi><mo>:</mo
+              ><mtext mathvariant="normal"
+                >The plan gets modeled internationally.</mtext
+              ></mrow
+            ><annotation encoding="application/x-tex">
+              m: \text{The plan gets modeled internationally.}
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>but provided minimal warranting, we could assign</p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>=</mo
+              ><mn>3</mn></mrow
+            ><annotation encoding="application/x-tex">
+              J(m) = 3
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>Now, if the opposing side were to argue</p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mo>¬</mo><mi>m</mi><mo>:</mo
+              ><mtext mathvariant="normal"
+                >The plan does not get modeled</mtext
+              ></mrow
+            ><annotation encoding="application/x-tex">
+              \neg m: \text{The plan does not get modeled}
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        and were to provide peer-reviewed evidence, backed by experts in the
+        field, citing empirics, we could assign some higher
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>J</mi
+            ><annotation encoding="application/x-tex">J</annotation></semantics
+          ></math
+        >-value to
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow><mo>¬</mo><mi>m</mi></mrow
+            ><annotation encoding="application/x-tex"
+              >\neg m</annotation
+            ></semantics
+          ></math
+        >
+        such that
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mo>¬</mo
+              ><mi>m</mi><mo stretchy="false" form="postfix">)</mo><mo>&gt;</mo
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex">
+              J(\neg m) &gt; J(m)
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        therefore concluding that
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>m</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>=</mo
+              ><mn>0</mn></mrow
+            ><annotation encoding="application/x-tex"
+              >T(m) = 0</annotation
+            ></semantics
+          ></math
+        >.
+      </p>
+      <h4 id="edge-case-unwarranted-claims">Edge-case: Unwarranted claims</h4>
+      <p>
+        What to do with two equally unwarranted claims? Say a debater blurts out
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>c</mi><mo>:</mo
+              ><mtext mathvariant="normal"
+                >The plan prevents war with China</mtext
+              ></mrow
+            ><annotation encoding="application/x-tex">
+              c: \text{The plan prevents war with China}
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        and provides no warrant for the claim. Now their opponent also blurts
+        out
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mo>¬</mo><mi>c</mi><mo>:</mo
+              ><mtext mathvariant="normal"
+                >The plan does not prevent war with China</mtext
+              ></mrow
+            ><annotation encoding="application/x-tex">
+              \neg c: \text{The plan does not prevent war with China}
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        and provides equally little warranting. In this case
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mo>¬</mo
+              ><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >J(\neg c) = J(c)</annotation
+            ></semantics
+          ></math
+        >. As the judge, do you conclude that the plan prevents war with China
+        or that it doesn’t?
+      </p>
+      <p>
+        Using the above function for
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >T(x)</annotation
+            ></semantics
+          ></math
+        >, you would conclude that since
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mo>¬</mo
+              ><mi>c</mi><mo stretchy="false" form="postfix">)</mo><mo>=</mo
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>c</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>,</mo
+              ><mspace width="0.222em"></mspace><mi>T</mi
+              ><mo stretchy="false" form="prefix">(</mo><mi>c</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>=</mo
+              ><mn>0</mn></mrow
+            ><annotation encoding="application/x-tex"
+              >J(\neg c) = J(c),\ T(c) = 0</annotation
+            ></semantics
+          ></math
+        >; therefore, the plan <strong>does not</strong> prevent war with China.
+      </p>
+      <h3 id="real-world-truth">Real-world truth</h3>
+      <p>
+        For the technical judge, the above is a sufficient toolkit, and
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >T(x)</annotation
+            ></semantics
+          ></math
+        >
+        can be determined <em>solely</em> through the arguments that a debater
+        has made in a round. However, for judges that ascribe to other
+        philosophies: truth &gt; tech, tech + truth, “Bayesian,” an element of a
+        claim’s connectedness to real-world truth---or personal belief---also
+        matters.
+      </p>
+      <p>
+        We can represent this personal belief in an argument using another
+        function
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>:</mo
+              ><mtext mathvariant="normal"
+                >One’s personal belief in the truth-value of an argument</mtext
+              ></mrow
+            ><annotation encoding="application/x-tex">
+              B(x): \text{One&#39;s personal belief in the truth-value of an
+              argument}
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        This value can implicate
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >T(x)</annotation
+            ></semantics
+          ></math
+        >
+        in many ways. Some judges are extremists; unless they personally believe
+        in an argument, they refuse to vote for it (e.g. parents). For them
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>=</mo
+              ><mrow
+                ><mo stretchy="true" form="prefix">{</mo
+                ><mtable
+                  ><mtr
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mn>1</mn></mtd
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mrow
+                        ><mtext mathvariant="normal">if </mtext
+                        ><mspace width="0.333em"></mspace></mrow
+                      ><mi>B</mi><mo stretchy="false" form="prefix">(</mo
+                      ><mi>x</mi><mo stretchy="false" form="postfix">)</mo
+                      ><mo>&gt;</mo><mn>0</mn></mtd
+                    ></mtr
+                  ><mtr
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mn>0</mn></mtd
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mrow
+                        ><mtext mathvariant="normal">if </mtext
+                        ><mspace width="0.333em"></mspace></mrow
+                      ><mi>B</mi><mo stretchy="false" form="prefix">(</mo
+                      ><mi>x</mi><mo stretchy="false" form="postfix">)</mo
+                      ><mo>≤</mo><mn>0</mn></mtd
+                    ></mtr
+                  ></mtable
+                ></mrow
+              ></mrow
+            ><annotation encoding="application/x-tex">
+              T(x) = \begin{cases} 1 &amp; \text{if } B(x) &gt; 0\\ 0 &amp;
+              \text{if } B(x) \leq 0 \end{cases}
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        Others include some baseline check for real-world connectedness in order
+        to evaluate arguments, for instance as a Bayesian lens
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>=</mo
+              ><mrow
+                ><mo stretchy="true" form="prefix">{</mo
+                ><mtable
+                  ><mtr
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mn>1</mn></mtd
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mrow
+                        ><mtext mathvariant="normal">if </mtext
+                        ><mspace width="0.333em"></mspace></mrow
+                      ><mi>J</mi><mo stretchy="false" form="prefix">(</mo
+                      ><mi>x</mi><mo stretchy="false" form="postfix">)</mo
+                      ><mo>−</mo><mi>J</mi
+                      ><mo stretchy="false" form="prefix">(</mo><mo>¬</mo
+                      ><mi>x</mi><mo stretchy="false" form="postfix">)</mo
+                      ><mo>&gt;</mo><mi>−</mi
+                      ><mrow
+                        ><mi mathvariant="normal">log</mi><mo>&#8289;</mo></mrow
+                      ><mrow
+                        ><mo stretchy="true" form="prefix">(</mo
+                        ><mfrac
+                          ><mrow
+                            ><mi>B</mi><mo stretchy="false" form="prefix">(</mo
+                            ><mi>x</mi
+                            ><mo stretchy="false" form="postfix">)</mo></mrow
+                          ><mrow
+                            ><mi>B</mi><mo stretchy="false" form="prefix">(</mo
+                            ><mo>¬</mo><mi>x</mi
+                            ><mo stretchy="false" form="postfix">)</mo></mrow
+                          ></mfrac
+                        ><mo stretchy="true" form="postfix">)</mo></mrow
+                      ></mtd
+                    ></mtr
+                  ><mtr
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mn>0</mn></mtd
+                    ><mtd columnalign="left" style="text-align: left"
+                      ><mtext mathvariant="normal">otherwise</mtext></mtd
+                    ></mtr
+                  ></mtable
+                ></mrow
+              ></mrow
+            ><annotation encoding="application/x-tex">
+              T(x) = \begin{cases} 1 &amp; \text{if } J(x) - J(\neg x) &gt;
+              -\log \left( \frac{B(x)}{B(\neg x)} \right)\\ 0 &amp;
+              \text{otherwise} \end{cases}
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        Here, personal belief is used as a threshold that an argument must
+        overcome in order to potentially have
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mn>1</mn
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >T(1)</annotation
+            ></semantics
+          ></math
+        >. The possibilities are endless, though this is also the reason why
+        such a model of evaluation is undesirable. This post is not intended to
+        be a defense of the tech &gt; truth paradigm, but it seems self-evident
+        that debaters want the debate to be about the arguments they’ve made and
+        not their judge’s personal belief, which including
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >B(x)</annotation
+            ></semantics
+          ></math
+        >
+        anywhere in your assessment risks. Therefore, to truly remain technical,
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >B(x)</annotation
+            ></semantics
+          ></math
+        >
+        should never be a factor in your equation for determining
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >T(x)</annotation
+            ></semantics
+          ></math
+        >.
+      </p>
+      <h2 id="reconciling-justification">Reconciling Justification</h2>
+      <p>
+        One final bit of reconciliation is necessary, how do we determine
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >J(x)</annotation
+            ></semantics
+          ></math
+        >? It seems that to include personal belief in evaluation runs contrary
+        to the tenets of technical evaluation. However, this seems inevitable.
+        You need to know what a PhD is in order to quantify by what amount
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >J(x)</annotation
+            ></semantics
+          ></math
+        >
+        should increase if the author a debater is citing has a PhD. You also
+        need to know about the real world in order to assess the quality of
+        analytic arguments or evidence, etc. Otherwise, you’d have no way to
+        distinguish the arguments a debater has made from gibberish.
+      </p>
+      <p>
+        This is compatible with a technical philosophy. For a judge to be
+        technical, they must be willing to vote solely on the arguments made in
+        a debate; i.e. they must not include personal belief in an argument,
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >B(x)</annotation
+            ></semantics
+          ></math
+        >, in their evaluation of it.
+      </p>
+      <p>
+        A non-technical judge imposes some baseline, influence, or amplify
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >J(x)</annotation
+            ></semantics
+          ></math
+        >
+        based on
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >B(x)</annotation
+            ></semantics
+          ></math
+        >. The distinction lies in whether one’s knowledge of the world is used
+        to compare warrants (is this evidence more qualified than the other) or
+        <em>claims</em> (does the plan prevent war with China).
+      </p>
+      <h2 id="distinguishing-j-and-b">
+        Distinguishing
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>J</mi
+            ><annotation encoding="application/x-tex">J</annotation></semantics
+          ></math
+        >
+        and
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>B</mi
+            ><annotation encoding="application/x-tex">B</annotation></semantics
+          ></math
+        >
+      </h2>
+      <p>
+        A concern that arises is that
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>J</mi
+            ><annotation encoding="application/x-tex">J</annotation></semantics
+          ></math
+        >
+        and
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>B</mi
+            ><annotation encoding="application/x-tex">B</annotation></semantics
+          ></math
+        >
+        seem quite similar. I’ve conceded earlier that external knowledge is
+        relevant for assessing
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>J</mi
+            ><annotation encoding="application/x-tex">J</annotation></semantics
+          ></math
+        >, but also seemingly that it shouldn’t be permitted via
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>B</mi
+            ><annotation encoding="application/x-tex">B</annotation></semantics
+          ></math
+        >. So what is the difference?
+      </p>
+      <p>
+        The distinction lies in that
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>B</mi
+            ><annotation encoding="application/x-tex">B</annotation></semantics
+          ></math
+        >
+        is a measure of pure personal belief, whereas
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>J</mi
+            ><annotation encoding="application/x-tex">J</annotation></semantics
+          ></math
+        >
+        is a measure of the justifications presented in a round. This means that
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow><mo>∀</mo><mi>x</mi></mrow
+            ><annotation encoding="application/x-tex"
+              >\forall x</annotation
+            ></semantics
+          ></math
+        >
+        such that
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>x</mi
+            ><annotation encoding="application/x-tex">x</annotation></semantics
+          ></math
+        >
+        is a claim made / contested in a round,
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >J(x)</annotation
+            ></semantics
+          ></math
+        >
+        at the beginning of the round is <strong>not equal to</strong>
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo></mrow
+            ><annotation encoding="application/x-tex"
+              >J(x)</annotation
+            ></semantics
+          ></math
+        >
+        at the end of the round. However, because
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>B</mi
+            ><annotation encoding="application/x-tex">B</annotation></semantics
+          ></math
+        >
+        just reflects your own personal belief, the arguments made in a
+        round---unless they’ve been so compelling as to shape your real
+        belief---never affect
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>B</mi
+            ><annotation encoding="application/x-tex">B</annotation></semantics
+          ></math
+        >.
+      </p>
+      <p>
+        Another question that arises is, what does it mean to permit personal
+        belief in evaluating justification, but not in influencing the outcome?
+        To answer this, we need a model of the technical judge.
+      </p>
+      <h2 id="a-conclusive-model-of-the-technical-judge">
+        A Conclusive Model of The Technical Judge
+      </h2>
+      <p>
+        From all of the above, we can construct a model of a technical judge. We
+        know that a technical judge must not let their external knowledge
+        influence their willingness to vote for certain arguments. That
+        establishes that the following are true
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mo>∀</mo><mi>x</mi><mo>,</mo><mi>y</mi
+              ><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix"
+                >(</mo
+              ><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix"
+                >[</mo
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>J</mi
+              ><mo stretchy="false" form="prefix">(</mo><mi>y</mi
+              ><mo stretchy="false" form="postfix">)</mo
+              ><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix"
+                >]</mo
+              ><mo>→</mo
+              ><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix"
+                >[</mo
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>=</mo><mi>T</mi
+              ><mo stretchy="false" form="prefix">(</mo><mi>y</mi
+              ><mo stretchy="false" form="postfix">)</mo
+              ><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix"
+                >]</mo
+              ><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix"
+                >)</mo
+              ></mrow
+            ><annotation encoding="application/x-tex">
+              \forall x,y \Big( \big[ J(x) = J(y) \big] \rightarrow \big[ T(x) =
+              T(y) \big] \Big)
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mo>∀</mo><mi>x</mi><mo>,</mo><mi>y</mi
+              ><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix"
+                >(</mo
+              ><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix"
+                >[</mo
+              ><mi>J</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mi>J</mi
+              ><mo stretchy="false" form="prefix">(</mo><mi>y</mi
+              ><mo stretchy="false" form="postfix">)</mo
+              ><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix"
+                >]</mo
+              ><mo>→</mo
+              ><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix"
+                >[</mo
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mi>T</mi
+              ><mo stretchy="false" form="prefix">(</mo><mi>y</mi
+              ><mo stretchy="false" form="postfix">)</mo
+              ><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix"
+                >]</mo
+              ><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix"
+                >)</mo
+              ></mrow
+            ><annotation encoding="application/x-tex">
+              \forall x,y \Big( \big[ J(x) \neq J(y) \big] \rightarrow \big[
+              T(x) \neq T(y) \big] \Big)
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        <math display="block" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mrow
+              ><mo>¬</mo><mo>∃</mo><mi>x</mi><mo>,</mo><mi>y</mi
+              ><mo minsize="180%" maxsize="180%" stretchy="true" form="prefix"
+                >(</mo
+              ><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix"
+                >[</mo
+              ><mi>B</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mi>B</mi
+              ><mo stretchy="false" form="prefix">(</mo><mi>y</mi
+              ><mo stretchy="false" form="postfix">)</mo
+              ><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix"
+                >]</mo
+              ><mo>→</mo
+              ><mo minsize="120%" maxsize="120%" stretchy="true" form="prefix"
+                >[</mo
+              ><mi>T</mi><mo stretchy="false" form="prefix">(</mo><mi>x</mi
+              ><mo stretchy="false" form="postfix">)</mo><mo>≠</mo><mi>T</mi
+              ><mo stretchy="false" form="prefix">(</mo><mi>y</mi
+              ><mo stretchy="false" form="postfix">)</mo
+              ><mo minsize="120%" maxsize="120%" stretchy="true" form="postfix"
+                >]</mo
+              ><mo minsize="180%" maxsize="180%" stretchy="true" form="postfix"
+                >)</mo
+              ></mrow
+            ><annotation encoding="application/x-tex">
+              \neg \exists x, y \Big( \big[ B(x) \neq B(y) \big] \rightarrow
+              \big[ T(x) \neq T(y) \big] \Big)
+            </annotation></semantics
+          ></math
+        >
+      </p>
+      <p>
+        It should never be the case that a mere difference in
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>B</mi
+            ><annotation encoding="application/x-tex">B</annotation></semantics
+          ></math
+        >
+        implies a difference in
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>T</mi
+            ><annotation encoding="application/x-tex">T</annotation></semantics
+          ></math
+        >
+        for any two claims made in a debate round, and it <strong>must</strong>
+        be the case that
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>J</mi
+            ><annotation encoding="application/x-tex">J</annotation></semantics
+          ></math
+        >
+        directly tracks with
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>T</mi
+            ><annotation encoding="application/x-tex">T</annotation></semantics
+          ></math
+        >, and therefore that differences in
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>J</mi
+            ><annotation encoding="application/x-tex">J</annotation></semantics
+          ></math
+        >
+        must lead to differences in
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>T</mi
+            ><annotation encoding="application/x-tex">T</annotation></semantics
+          ></math
+        >. We’ve already established the distinction between
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>B</mi
+            ><annotation encoding="application/x-tex">B</annotation></semantics
+          ></math
+        >
+        and
+        <math display="inline" xmlns="http://www.w3.org/1998/Math/MathML"
+          ><semantics
+            ><mi>J</mi
+            ><annotation encoding="application/x-tex">J</annotation></semantics
+          ></math
+        >
+        earlier, so we’re left with the conclusion that, for a technical judge:
+      </p>
+      <ul>
+        <li>
+          Belief in claims relevant to a debate must be based solely on the
+          arguments made in a round
+        </li>
+        <li>
+          Knowledge of the external world should be relevant solely to assess
+          the justification for arguments made, but must never be used to filter
+          arguments that do not align with one’s personal belief
+        </li>
+        <li>
+          Arguments made in a round should always take precedence over belief
+        </li>
+      </ul>
     </article>
   </body>
 </html>
