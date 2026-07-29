@@ -1,4 +1,6 @@
 <!doctype html>
+
+I
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -27,11 +29,20 @@
         >.
       </p>
       <p>College Policy Chain:</p>
-      <pre><code>debate@smodi.net;debatedocs@googlegroups.com;</code></pre>
+      <figure class="email-chain">
+        <pre><code>debate@smodi.net;caldebatedocs@googlegroups.com;debatedocs@googlegroups.com</code></pre>
+        <button type="button" class="copy" data-copy aria-label="Copy email chain"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"></path></svg></button>
+      </figure>
       <p>HSLD Chain:</p>
-      <pre><code>debate@smodi.net;dolsd@googlegroups.com;lddocs@googlegroups.com;</code></pre>
+      <figure class="email-chain">
+        <pre><code>debate@smodi.net;dolsd@googlegroups.com;lddocs@googlegroups.com;</code></pre>
+        <button type="button" class="copy" data-copy aria-label="Copy email chain"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"></path></svg></button>
+      </figure>
       <p>HSCX Chain</p>
-      <pre><code>debate@smodi.net;dolsd@googlegroups.com;</code></pre>
+      <figure class="email-chain">
+        <pre><code>debate@smodi.net;dolsd@googlegroups.com;</code></pre>
+        <button type="button" class="copy" data-copy aria-label="Copy email chain"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"></path></svg></button>
+      </figure>
       <p>
         I have had the privilege of working with some of the most motivated debaters on the circuit
         and hold an immense appreciation for the dedication debaters have to this activity. My
@@ -269,5 +280,35 @@
         </ol>
       </section>
     </article>
+    <script>
+      const COPY =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256"><path d="M216,32H88a8,8,0,0,0-8,8V80H40a8,8,0,0,0-8,8V216a8,8,0,0,0,8,8H168a8,8,0,0,0,8-8V176h40a8,8,0,0,0,8-8V40A8,8,0,0,0,216,32ZM160,208H48V96H160Zm48-48H176V88a8,8,0,0,0-8-8H96V48H208Z"></path></svg>';
+      const CHECK =
+        '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 256 256"><path d="M229.66,77.66l-128,128a8,8,0,0,1-11.32,0l-56-56a8,8,0,0,1,11.32-11.32L96,188.69,218.34,66.34a8,8,0,0,1,11.32,11.32Z"></path></svg>';
+      document.querySelectorAll(".email-chain").forEach((fig) => {
+        const btn = fig.querySelector("button[data-copy]");
+        const text = fig.querySelector("code").textContent.trim();
+        let timer;
+        btn.addEventListener("click", async () => {
+          try {
+            await navigator.clipboard.writeText(text);
+          } catch {
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+          }
+          clearTimeout(timer);
+          btn.innerHTML = CHECK;
+          btn.classList.add("copied");
+          timer = setTimeout(() => {
+            btn.innerHTML = COPY;
+            btn.classList.remove("copied");
+          }, 1500);
+        });
+      });
+    </script>
   </body>
 </html>

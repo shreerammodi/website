@@ -151,6 +151,44 @@ main.center h1 {
   background: none;
   padding: 0;
 }
+.prose .email-chain {
+  margin: 0 0 1.1rem;
+  display: flex;
+  align-items: center;
+  background: #f4f4f4;
+  border-radius: 4px;
+}
+.prose .email-chain pre {
+  margin: 0;
+  flex: 1;
+  min-width: 0;
+  text-align: start;
+  background: none;
+  border-radius: 0;
+}
+.prose .email-chain .copy {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  margin: 0 0.5rem;
+  border: none;
+  background: none;
+  color: #888;
+  padding: 0.2rem;
+  border-radius: 3px;
+  cursor: pointer;
+  line-height: 0;
+}
+.prose .email-chain .copy svg {
+  width: 20px;
+  height: 20px;
+}
+.prose .email-chain .copy:hover {
+  color: #444;
+}
+.prose .email-chain .copy.copied {
+  color: #2a7a2a;
+}
 
 .prose hr {
   border: none;
